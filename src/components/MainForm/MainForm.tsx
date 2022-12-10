@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {GotMeal} from "../../types";
+import ButtonSpinner from "../Spinner/ButtonSpinner";
 
 interface Props {
   onSubmit: (meal: GotMeal) => void;
+  isLoading?: boolean;
 }
 
-const MainForm: React.FC<Props> = ({onSubmit}) => {
+const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
   const [dish, setDish] = useState<GotMeal>({
     category: '',
     description: '',
@@ -77,7 +79,13 @@ const MainForm: React.FC<Props> = ({onSubmit}) => {
           />
         </div>
         <div className='text-center'>
-          <button className='btn btn-info'>Save</button>
+          <button
+              type='submit'
+              disabled={isLoading}
+              className='btn btn-info'>
+            {isLoading && <ButtonSpinner/>}
+            Save
+          </button>
         </div>
       </div>
     </form>
