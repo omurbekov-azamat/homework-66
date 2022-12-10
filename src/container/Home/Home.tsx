@@ -8,6 +8,7 @@ import Cards from "../../components/Card/Cards";
 const Home = () => {
     const location = useLocation();
     const [loading, setLoading] = useState(false);
+    const [deleteLoading, setDeleteLoading] = useState<string>('');
     const [food, setFood] = useState<GotMealApi[]>([]);
 
     const fetchFood = useCallback(async () => {
@@ -21,6 +22,8 @@ const Home = () => {
                     return meal;
                 });
                 setFood(food);
+            } else {
+                setFood([]);
             }
         } finally {
             setLoading(false);
@@ -38,6 +41,14 @@ const Home = () => {
             <Spinner/>
         )
     }
+    const deleteOneMeal = async (id: string) => {
+        try {
+            setDeleteLoading(id);
+            await axiosApi.delete('/calories/' + id + '.json');
+        } finally {
+            fetchFood().catch(console.error);
+        }
+    };
 
   return (
     <>
@@ -45,7 +56,7 @@ const Home = () => {
         <p>Total calories: </p>
         <Link to='/new-meal' className='btn btn-primary'>Add new meal</Link>
       </div>
-        <Cards infoFromApi={food}/>
+        <Cards infoFromApi={food} onDelete={deleteOneMeal} removedIdItem={deleteLoading}/>
     </>
   );
 };

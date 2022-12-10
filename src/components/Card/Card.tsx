@@ -1,11 +1,15 @@
 import React from 'react';
 import {GotMealApi} from "../../types";
 import {Link} from "react-router-dom";
+import ButtonSpinner from "../Spinner/ButtonSpinner";
 
 interface Props{
     infoFromApi: GotMealApi;
+    onDelete: React.MouseEventHandler;
+    isLoading?: boolean;
 }
-const Card: React.FC<Props> = ({infoFromApi}) => {
+
+const Card: React.FC<Props> = ({infoFromApi, onDelete, isLoading= false}) => {
     return (
         <div className="card mt-3">
 
@@ -18,7 +22,10 @@ const Card: React.FC<Props> = ({infoFromApi}) => {
                         </div>
                         <div className='d-flex flex-column justify-content-around'>
                             <Link to={'/'} className='btn btn-info'>Edit</Link>
-                            <Link to={'/'} className='btn btn-danger'>Delete</Link>
+                            <button disabled={isLoading} className='btn btn-danger' onClick={onDelete}>
+                                {isLoading && <ButtonSpinner/>}
+                                Delete
+                            </button>
                         </div>
                     </div>
 
