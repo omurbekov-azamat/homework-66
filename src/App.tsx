@@ -1,5 +1,7 @@
 import React from 'react';
 import NavBar from "./components/NavBar/NavBar";
+import {Routes, Route} from "react-router-dom";
+import Home from "./container/Home/Home";
 
 function App() {
   return (
@@ -7,6 +9,11 @@ function App() {
       <header>
         <NavBar/>
       </header>
+      <main className='container'>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+      </main>
     </>
   );
 }
