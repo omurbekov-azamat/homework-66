@@ -8,7 +8,7 @@ interface Props {
 }
 
 const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
-  const [dish, setDish] = useState<GotMeal>({
+  const [food, setFood] = useState<GotMeal>({
     category: '',
     description: '',
     calories: '',
@@ -16,15 +16,15 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
 
   const onDishChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const {name, value} = e.target;
-    setDish(prev => ({...prev, [name]: value}));
+    setFood(prev => ({...prev, [name]: value}));
   };
 
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    onSubmit(dish);
+    onSubmit(food);
 
-    setDish({
+    setFood({
       category: '',
       description: '',
       calories: '',
@@ -41,7 +41,7 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
             name="category"
             id="category"
             className='form-control mt-2'
-            value={dish.category}
+            value={food.category}
             onChange={onDishChange}
             required
           >
@@ -60,7 +60,7 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
             name='description'
             type="text"
             className='form-control mt-2'
-            value={dish.description}
+            value={food.description}
             onChange={onDishChange}
             required
           />
@@ -73,7 +73,7 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
             name='calories'
             type="text"
             className='form-control mt-2'
-            value={dish.calories}
+            value={food.calories}
             onChange={onDishChange}
             required
           />
