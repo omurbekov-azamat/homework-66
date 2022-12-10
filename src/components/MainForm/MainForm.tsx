@@ -1,9 +1,36 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {GotMeal} from "../../types";
 
-const MainForm = () => {
+interface Props {
+  onSubmit: (meal: GotMeal) => void;
+}
+
+const MainForm: React.FC<Props> = ({onSubmit}) => {
+  const [dish, setDish] = useState<GotMeal>({
+    category: '',
+    description: '',
+    calories: '',
+  });
+
+  const onDishChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const {name, value} = e.target;
+    setDish(prev => ({...prev, [name]: value}));
+  };
+
+  const onFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    onSubmit(dish);
+
+    setDish({
+      category: '',
+      description: '',
+      calories: '',
+    });
+  };
 
   return (
-    <form>
+    <form onSubmit={onFormSubmit}>
       <div className='mt-5'>
         <h4 className='mb-5 text-center'>Add new Meal</h4>
         <div className='mb-4'>
@@ -12,6 +39,8 @@ const MainForm = () => {
             name="category"
             id="category"
             className='form-control mt-2'
+            value={dish.category}
+            onChange={onDishChange}
             required
           >
             <option value="">Choose category</option>
@@ -24,11 +53,13 @@ const MainForm = () => {
         <div className='mb-4'>
           <label htmlFor="title">Meal description</label>
           <input
-            placeholder='meal'
-            id='meal'
-            name='meal'
+            placeholder='description'
+            id='description'
+            name='description'
             type="text"
             className='form-control mt-2'
+            value={dish.description}
+            onChange={onDishChange}
             required
           />
         </div>
@@ -40,6 +71,8 @@ const MainForm = () => {
             name='calories'
             type="text"
             className='form-control mt-2'
+            value={dish.calories}
+            onChange={onDishChange}
             required
           />
         </div>
