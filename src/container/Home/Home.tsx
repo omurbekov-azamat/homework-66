@@ -3,6 +3,7 @@ import {Link, useLocation} from "react-router-dom";
 import axiosApi from "../../axiosApi";
 import Spinner from "../../components/Spinner/Spinner";
 import {GotMealApi, GotMealList} from "../../types";
+import Cards from "../../components/Card/Cards";
 
 const Home = () => {
     const location = useLocation();
@@ -13,7 +14,6 @@ const Home = () => {
         try {
             setLoading(true);
             const foodResponse = await axiosApi.get<GotMealList>('/calories.json');
-            console.log(foodResponse.data)
             if (foodResponse.data) {
                 const food = Object.keys(foodResponse.data).map(key => {
                     const meal = foodResponse.data[key];
@@ -39,14 +39,13 @@ const Home = () => {
         )
     }
 
-    console.log(food);
-
   return (
     <>
       <div className='d-flex justify-content-between mt-4'>
         <p>Total calories: </p>
         <Link to='/new-meal' className='btn btn-primary'>Add new meal</Link>
       </div>
+        <Cards infoFromApi={food}/>
     </>
   );
 };
