@@ -5,14 +5,17 @@ import ButtonSpinner from "../Spinner/ButtonSpinner";
 interface Props {
   onSubmit: (meal: GotMeal) => void;
   isLoading?: boolean;
+  existingFood?: GotMeal;
 }
 
-const MainForm: React.FC<Props> = ({onSubmit, isLoading= false}) => {
-  const [food, setFood] = useState<GotMeal>({
-    category: '',
-    description: '',
-    calories: '',
-  });
+const initialState: GotMeal = {
+  category: '',
+  description: '',
+  calories: '',
+};
+
+const MainForm: React.FC<Props> = ({onSubmit, isLoading= false, existingFood= initialState}) => {
+  const [food, setFood] = useState<GotMeal>(existingFood);
 
   const onDishChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const {name, value} = e.target;

@@ -10,6 +10,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState<string>('');
     const [food, setFood] = useState<GotMealApi[]>([]);
+
     const totalCalories = food.reduce((acc, meal ) => {
         const calories = Number(meal.calories);
         return acc + calories
@@ -45,6 +46,7 @@ const Home = () => {
             <Spinner/>
         )
     }
+
     const deleteOneMeal = async (id: string) => {
         try {
             setDeleteLoading(id);

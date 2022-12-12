@@ -21,7 +21,7 @@ const Card: React.FC<Props> = ({infoFromApi, onDelete, isLoading= false}) => {
                             <p className="card-text">{infoFromApi.calories} calories</p>
                         </div>
                         <div className='d-flex flex-column justify-content-around'>
-                            <Link to={'/'} className='btn btn-info'>Edit</Link>
+                            <Link to={'/edit-meal/' + infoFromApi.id} className='btn btn-info'>Edit</Link>
                             <button disabled={isLoading} className='btn btn-danger' onClick={onDelete}>
                                 {isLoading && <ButtonSpinner/>}
                                 Delete
