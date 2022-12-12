@@ -10,6 +10,10 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [deleteLoading, setDeleteLoading] = useState<string>('');
     const [food, setFood] = useState<GotMealApi[]>([]);
+    const totalCalories = food.reduce((acc, meal ) => {
+        const calories = Number(meal.calories);
+        return acc + calories
+    },0);
 
     const fetchFood = useCallback(async () => {
         try {
@@ -53,7 +57,7 @@ const Home = () => {
   return (
     <>
       <div className='d-flex justify-content-between mt-4'>
-        <p>Total calories: </p>
+        <h4 className='text-danger'>Total: {totalCalories}  calories</h4>
         <Link to='/new-meal' className='btn btn-primary'>Add new meal</Link>
       </div>
         <Cards infoFromApi={food} onDelete={deleteOneMeal} removedIdItem={deleteLoading}/>
