@@ -4,6 +4,12 @@ export interface GotMeal {
   calories: string;
 }
 
+export interface SendMeal {
+  category: string;
+  description: string;
+  calories: number;
+}
+
 export interface GotMealApi extends GotMeal {
   id: string;
 }

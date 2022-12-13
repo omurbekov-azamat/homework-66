@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import axiosApi from "../../axiosApi";
 import MainForm from "../../components/MainForm/MainForm";
-import {GotMeal, GotMealApi} from "../../types";
+import {GotMealApi, SendMeal} from "../../types";
 import Spinner from "../../components/Spinner/Spinner";
 
 const MultiContainer = () => {
@@ -12,7 +12,7 @@ const MultiContainer = () => {
   const [buttonLoading, setButtonLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
 
-  const onNewSubmit = async (meal: GotMeal) => {
+  const onNewSubmit = async (meal: SendMeal) => {
     try {
       setButtonLoading(true);
       await axiosApi.post('/calories.json', meal);
@@ -36,7 +36,7 @@ const MultiContainer = () => {
     fetchOneFood().catch(console.error);
   }, [fetchOneFood]);
 
-  const updateFood = async (item: GotMeal) => {
+  const updateFood = async (item: SendMeal) => {
     try {
       setButtonLoading(true);
       await axiosApi.put('/calories/' + id + '.json', item);

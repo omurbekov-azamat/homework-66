@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import ButtonSpinner from "../Spinner/ButtonSpinner";
-import {GotMeal} from "../../types";
+import {GotMeal, SendMeal} from "../../types";
 
 interface Props {
-  onSubmit: (meal: GotMeal) => void;
+  onSubmit: (meal: SendMeal) => void;
   isLoading?: boolean;
   existingFood?: GotMeal;
   isEdit?: boolean;
@@ -32,7 +32,10 @@ const MainForm: React.FC<Props> = ({
   const onFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    onSubmit(food);
+    onSubmit({
+      ...food,
+      calories: parseFloat(food.calories),
+    });
 
     setFood({
       category: '',
@@ -81,7 +84,7 @@ const MainForm: React.FC<Props> = ({
             placeholder='calories'
             id='calories'
             name='calories'
-            type="text"
+            type="number"
             className='form-control mt-2'
             value={food.calories}
             onChange={onDishChange}

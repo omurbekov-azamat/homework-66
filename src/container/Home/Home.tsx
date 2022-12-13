@@ -41,7 +41,6 @@ const Home = () => {
     }
   }, [fetchFood, location]);
 
-
   const deleteOneMeal = async (id: string) => {
     try {
       setDeleteLoading(id);
