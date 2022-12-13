@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {GotMeal} from "../../types";
 import ButtonSpinner from "../Spinner/ButtonSpinner";
+import {GotMeal} from "../../types";
 
 interface Props {
   onSubmit: (meal: GotMeal) => void;
   isLoading?: boolean;
   existingFood?: GotMeal;
+  isEdit?: boolean;
 }
 
 const initialState: GotMeal = {
@@ -14,7 +15,13 @@ const initialState: GotMeal = {
   calories: '',
 };
 
-const MainForm: React.FC<Props> = ({onSubmit, isLoading= false, existingFood= initialState}) => {
+const MainForm: React.FC<Props> = ({
+                                     onSubmit,
+                                     isLoading = false,
+                                     existingFood = initialState,
+                                     isEdit = false
+                                   }) => {
+
   const [food, setFood] = useState<GotMeal>(existingFood);
 
   const onDishChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -37,7 +44,7 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false, existingFood= in
   return (
     <form onSubmit={onFormSubmit}>
       <div className='mt-5'>
-        <h4 className='mb-5 text-center'>Add new Meal</h4>
+        <h4 className='mb-5 text-center'>{isEdit ? 'Edit Meal' : 'Add new Meal'}</h4>
         <div className='mb-4'>
           <label htmlFor="category">Category</label>
           <select
@@ -83,9 +90,10 @@ const MainForm: React.FC<Props> = ({onSubmit, isLoading= false, existingFood= in
         </div>
         <div className='text-center'>
           <button
-              type='submit'
-              disabled={isLoading}
-              className='btn btn-info'>
+            type='submit'
+            disabled={isLoading}
+            className='btn btn-info'
+          >
             {isLoading && <ButtonSpinner/>}
             Save
           </button>
